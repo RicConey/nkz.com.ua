@@ -1,25 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-
-function parseUserAgent(agent) {
-    if (!agent) return 'unknown';
-    let browser = 'unknown';
-    let os = 'unknown';
-
-    if (agent.includes('SamsungBrowser')) browser = 'Samsung Internet';
-    else if (agent.includes('Chrome')) browser = 'Chrome';
-    else if (agent.includes('Firefox')) browser = 'Firefox';
-    else if (agent.includes('Safari') && !agent.includes('Chrome')) browser = 'Safari';
-    else if (agent.includes('Edge')) browser = 'Edge';
-
-    if (agent.includes('Windows')) os = 'Windows';
-    else if (agent.includes('Android')) os = 'Android';
-    else if (agent.includes('iPhone') || agent.includes('iPad')) os = 'iOS';
-    else if (agent.includes('Mac OS')) os = 'macOS';
-
-    return `${browser}, ${os}`;
-}
+import { parseUserAgent } from '../../../lib/parseUserAgent'; // Импортируем функцию
 
 export default function SlugLogs({ slug }) {
     const [logs, setLogs] = useState([]);

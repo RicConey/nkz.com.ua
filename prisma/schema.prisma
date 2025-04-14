@@ -13,6 +13,7 @@ model Link {
   title        String?
   url          String
   paused       Boolean       @default(false)
+  readOnly     Boolean       @default(false)
   createdAt    DateTime      @default(now())
   redirectLogs RedirectLog[] @relation("LinkRedirectLogs")
 }
