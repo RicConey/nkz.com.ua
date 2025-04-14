@@ -1,15 +1,30 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
+model Link {
+  id           Int           @id @default(autoincrement())
+  slug         String        @unique
+  title        String?
+  url          String
+  paused       Boolean       @default(false)
+  createdAt    DateTime      @default(now())
+  redirectLogs RedirectLog[] @relation("LinkRedirectLogs")
 }
 
-model Link {
+model RedirectLog {
   id        Int      @id @default(autoincrement())
-  slug      String   @unique
-  url       String
+  slug      String
+  linkUrl   String
+  title     String?
+  ip        String?
+  userAgent String?
   createdAt DateTime @default(now())
+  // На стороне RedirectLog указываем связь (fields и references) – только с одной стороны!
+  link      Link?    @relation("LinkRedirectLogs", fields: [slug], references: [slug])
 }
